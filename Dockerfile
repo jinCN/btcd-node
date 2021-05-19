@@ -30,18 +30,7 @@ COPY --from=builder /go/bin/findcheckpoint /bin/
 COPY --from=builder /go/bin/gencerts /bin/
 
 RUN mkdir "/rpc" "/root/.btcd" "/root/.btcctl" \
-&&  touch "/root/.btcd/btcd.conf" \
-# Manually generate certificate and add all domains, it is needed to connect
-# "btcctl" and "lnd" to "btcd" over docker links.
-&& "/bin/gencerts" --host="*" --directory="/rpc" --force
-
-# Create a volume to house pregenerated RPC credentials. This will be
-# shared with any lnd, btcctl containers so they can securely query btcd's RPC
-# server.
-# You should NOT do this before certificate generation!
-# Otherwise manually generated certificate will be overridden with shared
-# mounted volume! For more info read dockerfile "VOLUME" documentation.
-VOLUME ["/rpc"]
+&&  touch "/root/.btcd/btcd.conf"
 
 VOLUME ["/data"]
 

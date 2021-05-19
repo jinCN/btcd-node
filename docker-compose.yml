@@ -9,8 +9,7 @@ services:
       dockerfile: Dockerfile         # 指定Dockerfile文件名称
     image: btcd-node:1.0.1
     volumes:
-      - btcd-data:/data
-      - btcd-rpc:/rpc
+      - btcd-data:/root/.btcd
     ports:
       - 8333:8333
       - 8334:8334
@@ -18,8 +17,8 @@ services:
       TZ: Asia/Shanghai
     command: [
         "--rpcuser=shuttleflow",
-        "--rpcpass=kyloM3zEf8"
+        "--rpcpass=kyloM3zEf8",
+        "--rpclisten=0.0.0.0"
     ]
 volumes:
   btcd-data:
-  btcd-rpc:
