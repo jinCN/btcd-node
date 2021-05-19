@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  btcd:
+    container_name: btcd
+    hostname: btcd
+    restart: unless-stopped
+    build: # 构建自定义镜像
+      context: ./                   # 指定Dockerfile文件所在路径
+      dockerfile: Dockerfile         # 指定Dockerfile文件名称
+    image: btcd-node:1.0.1
+    volumes:
+      - btcd-data:/data
+      - btcd-rpc:/rpc
+    ports:
+      - 8333:8333
+      - 8334:8334
+    environment:
+      TZ: Asia/Shanghai
+    command: [
+        "--rpcuser=shuttleflow",
+        "--rpcpass=kyloM3zEf8"
+    ]
+volumes:
+  btcd-data:
+  btcd-rpc:
