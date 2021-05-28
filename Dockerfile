@@ -32,6 +32,9 @@ COPY --from=builder /go/bin/gencerts /bin/
 RUN mkdir "/rpc" "/root/.btcd" "/root/.btcctl" \
 &&  touch "/root/.btcd/btcd.conf"
 
+COPY rpc.cert /root/.btcd/rpc.cert
+COPY rpc.key /root/.btcd/rpc.key
+
 VOLUME ["/data"]
 
 ENTRYPOINT ["btcd"]
